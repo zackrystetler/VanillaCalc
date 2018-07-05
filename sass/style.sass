@@ -1,0 +1,73 @@
+@import '../css/normalize-min'
+
+* 
+     box-sizing: border-box
+
+
+body 
+    font-family: sans-serif
+    font-weight: lighter
+    font-size: 1.25em
+    height: 100vh
+    display: flex
+    justify-content: center
+    align-items: center
+    margin: 0
+    background-color: darkcyan
+
+
+#calculator 
+    width: 230px
+    height: 320px
+    box-shadow: 0px 3px 30px rgba(0,0,0,0.3)
+    border-radius: 5px
+    overflow: hidden
+    display: grid
+    grid-gap: 1px
+    background-color: #8e8e8e
+    grid-template-columns: 1fr 1fr 1fr 1fr
+    grid-template-rows: 1.3fr 1fr 1fr 1fr 1fr 1fr
+    grid-template-areas: "input input input input"
+
+    #display
+        grid-area: input
+        width: 100%
+        flex-grow: 1
+        background-color: #4C4C4C
+        color: white
+        text-align: right
+        font-size: 2.3em
+        font-weight: 100
+        display: flex
+        flex-direction: column
+        justify-content: flex-end
+        padding: 0 6px
+
+    button
+        background-color: #E0E0E0
+        border: none
+        outline: none
+        font-weight: 100
+        font-size: 1.2em
+
+        &:nth-child(18)
+            grid-column: 1 / 3
+            text-align: left
+            padding-left: 1.5rem
+        
+        &:active
+            background-color: #b2b2b2
+        
+        &.func
+            background-color: #d6d6d6
+            font-size: .9em
+
+            &:active
+                background-color: #a9a9a9
+        
+        &.op
+            background-color: #f5923e
+            color: white
+
+            &:active
+                background-color: #c2732f
