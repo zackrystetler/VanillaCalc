@@ -85,16 +85,15 @@ var buttons = [
         type: "op"
     }
 ]
-
-var value = "0";
-var valueMem = null;
-var mathOp = null;
-var clearNext = false;
+var memory = '0';
+var display = '0';
 
 buildButtons();
+updateDisplay(memory);
 
-function updateDisplay() {
-    document.getElementById("display").innerHTML = value;
+function updateDisplay(x) {
+    document.getElementById("display").innerHTML = x;
+    console.log(memory);
 }
 
 
@@ -117,7 +116,6 @@ function buildButtons() {
         button.addEventListener("click", pressButton);
 
         buttonGrid.appendChild(button);
-
     }
 }
 
@@ -126,64 +124,64 @@ function pressButton() {
     var pressedButt = this.id;
     var pressedButtType = this.classList;
 
+    //logic if button pressed is a number
     if (pressedButtType == "num") {
-
-        if (value == "0" || clearNext == true) {
-            value = pressedButt;
-            clearNext = false;
+        if (memory == '0') {
+            memory = pressedButt;
+            display = pressedButt;
         } else {
-            value += pressedButt;
-        } 
-
-    } else if (pressedButtType == "dec") {
-
-        if (value.includes(".")) {
+            memory += pressedButt;
+            display += pressedButt;
+        }
+        updateDisplay(display);
+    }
+    
+    //logic if button pressed is a decimal
+    else if (pressedButtType == "dec") {
+        if (memory.includes(pressedButt)) {
             return;
         } else {
-            value += ".";
+            memory += pressedButt;
+            display += pressedButt;
         }
-        
-    } else if (pressedButtType == "func") {
-
+        updateDisplay(display);
+    } 
+    
+    //logic if button pressed is a function
+    else if (pressedButtType == "func") {
         if (pressedButt == "clr") {
-            value = "0";
-            valueMem = null;
-            mathOp = null;
-            clearNext = false;
-
+            memory = '0';
         } else if (pressedButt == "inv") {
-            value *= -1;
+            memory = eval(memory);
+            memory *= -1;
         } else if (pressedButt == "per") {
-            value = value*.01;
+            memory = eval(memory);
+            memory/=100;            
         } 
-
-    } else if (pressedButtType == "op") {
-
-        
-        if (pressedButt != "eq") {
-
-            valueMem = value;
-            mathOp = pressedButt;
-            clearNext = true;
-        }
-
-
-        if (pressedButt == "eq") {
-
-            if (mathOp == "div") {
-                value = valueMem / value;
-            } else if (mathOp == "mult") {
-                value = valueMem * value;
-            } else if (mathOp == "sub") {
-                value = valueMem - value;
-            } else if (mathOp == "add") {
-                value = valueMem + value;
-            } 
-            mathOp = null;
-            clearNext = true;
-        }    
-    }
-
-    updateDisplay();
-
+        display = eval(memory);
+        updateDisplay(display);
+    } 
+    
+    //logic if button pressed is a math operation
+    else if (pressedButtType == "op") {
+        if (pressedButt == "div") {
+            memory += "/";
+            display = '';
+        } else if (pressedButt == "mult") {
+            memory += "*";
+            display = '';
+        } else if (pressedButt == "sub") {
+            memory += "-";
+            display = '';
+        } else if (pressedButt == "add") {
+            memory += "+";
+            display = '';
+        } else if (pressedButt == "eq") {
+            display = eval(memory);
+            updateDisplay(display);
+        }     
+    }    
 }
+
+
+
