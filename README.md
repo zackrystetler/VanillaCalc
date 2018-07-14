@@ -4,7 +4,9 @@ A simple calculator created using HTML, SASS, and vanilla javascript.
 
 ## Getting Started
 
-Downlaod .zip and run index.html
+Download zip and run index.html or click here:
+
+http://htmlpreview.github.io/?https://github.com/zackrystetler/vanillacalc/blob/master/index.html
 
 ## Authors
 
